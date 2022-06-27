@@ -40,6 +40,8 @@ class FocusViewController: UIViewController {
         snapshot.appendItems(items, toSection: .main)
         datasource.apply(snapshot)
         
+        collectionView.delegate = self
+        
         // Layout
         collectionView.collectionViewLayout = layout()
         
@@ -78,5 +80,13 @@ class FocusViewController: UIViewController {
         datasource.apply(snapshot)
         
         updateButtonTitle()
+    }
+}
+
+extension FocusViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "QuickFocus", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "QuickFocusListViewController") as! QuickFocusListViewController
+        present(vc, animated: true)
     }
 }
