@@ -10,21 +10,22 @@ import UIKit
 class QuickFocusListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let breathingList: [QuickFocus] = QuickFocus.breathing
-    let walkingList: [QuickFocus] = QuickFocus.walking
+    let breathingList = QuickFocus.breathing
+    let walkingList = QuickFocus.walking
     
-    typealias Item = QuickFocus
     enum Section: CaseIterable {
         case breathe
-        case walking
+        case walk
         
         var title: String {
             switch self {
             case .breathe: return "Breathing exercises"
-            case .walking: return "Mindful walks"
+            case .walk: return "Mindful walks"
             }
         }
     }
+    typealias Item = QuickFocus
+    
     var datasource: UICollectionViewDiffableDataSource<Section, Item>!
     
     override func viewDidLoad() {
@@ -45,13 +46,12 @@ class QuickFocusListViewController: UIViewController {
         }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.breathe, .walking])
+        snapshot.appendSections([.breathe, .walk])
         snapshot.appendItems(breathingList, toSection: .breathe)
-        snapshot.appendItems(walkingList, toSection: .walking)
+        snapshot.appendItems(walkingList, toSection: .walk)
         datasource.apply(snapshot)
         
         collectionView.collectionViewLayout = layout()
-        self.navigationItem.largeTitleDisplayMode = .never
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
@@ -66,12 +66,11 @@ class QuickFocusListViewController: UIViewController {
         section.interGroupSpacing = 20
         section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 20, bottom: 30, trailing: 20)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
         
         let layout = UICollectionViewCompositionalLayout(section: section)
-        
         return layout
     }
 }
