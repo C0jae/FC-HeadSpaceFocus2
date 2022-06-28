@@ -14,8 +14,8 @@ class FocusCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = UIColor.systemIndigo
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = 16
+        contentView.backgroundColor = .systemIndigo
     }
     
     func configure(_ item: Focus) {
@@ -23,5 +23,4 @@ class FocusCell: UICollectionViewCell {
         descriptionLabel.text = item.description
         thumbnailImageView.image = UIImage(systemName: item.imageName)?.withRenderingMode(.alwaysOriginal)
     }
-    
 }
