@@ -14,8 +14,8 @@ class FocusCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.layer.cornerRadius = 16
         contentView.backgroundColor = .systemIndigo
+        contentView.layer.cornerRadius = 16
     }
     
     func configure(_ item: Focus) {
